@@ -67,7 +67,6 @@ app.get('/tasks/:id', (request, response) => {
 app.put('/tasks/:id', (request, response) => {
   const editTask = request.body
   const id = request.params.id
-  // Find the book with the matching ISBN
   const taskId = tasks.findIndex((task) => task.id === id)
 
   if (taskId === -1) {
@@ -78,7 +77,6 @@ app.put('/tasks/:id', (request, response) => {
   response.json(editTask)
 })
 app.delete('/tasks/:id', (request, response) => {
-  // const editBook = request.body;
   const id = request.params.id
   const taskId = tasks.findIndex((task) => task.id === id)
   tasks.splice(taskId, 1)
@@ -107,8 +105,6 @@ app.delete('/logout', (request, response) => {
   request.session.authenticated = false
   response.sendStatus(204)
 })
-
-
 app.listen(port, () => {
   console.log('Listening on Port: ', port)
 })
