@@ -20,11 +20,17 @@
   "paths": {
     "/tasks": {
       "get": {
-        "description": "",
+        "tags": [
+          "definitions"
+        ],
+        "description": "Gets the list of tasks",
         "parameters": [],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "List of Tasks",
+            "schema": {
+              "$ref": "#/task"
+            }
           },
           "500": {
             "description": "Internal Server Error"
@@ -32,7 +38,10 @@
         }
       },
       "post": {
-        "description": "",
+        "tags": [
+          "definitions"
+        ],
+        "description": "Make a new Task",
         "parameters": [
           {
             "name": "body",
@@ -40,7 +49,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "titel": {
+                "title": {
                   "example": "any"
                 },
                 "id": {
@@ -51,6 +60,12 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "the new Task",
+            "schema": {
+              "$ref": "#/task"
+            }
+          },
           "201": {
             "description": "Created"
           },
@@ -65,7 +80,10 @@
     },
     "/tasks/{id}": {
       "get": {
-        "description": "",
+        "tags": [
+          "definitions"
+        ],
+        "description": "Get a specific Task",
         "parameters": [
           {
             "name": "id",
@@ -76,7 +94,10 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "the specific task",
+            "schema": {
+              "$ref": "#/task"
+            }
           },
           "404": {
             "description": "Not Found"
@@ -87,7 +108,10 @@
         }
       },
       "put": {
-        "description": "",
+        "tags": [
+          "definitions"
+        ],
+        "description": "Change the value of object",
         "parameters": [
           {
             "name": "id",
@@ -98,7 +122,10 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "changing",
+            "schema": {
+              "$ref": "#/task"
+            }
           },
           "404": {
             "description": "Not Found"
@@ -109,7 +136,10 @@
         }
       },
       "delete": {
-        "description": "",
+        "tags": [
+          "definitions"
+        ],
+        "description": "Deleting of a task",
         "parameters": [
           {
             "name": "id",
@@ -120,7 +150,10 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "deleted Task",
+            "schema": {
+              "$ref": "#/task"
+            }
           },
           "404": {
             "description": "Not Found"
@@ -133,7 +166,10 @@
     },
     "/login": {
       "post": {
-        "description": "",
+        "tags": [
+          "definitions"
+        ],
+        "description": "Give your login data to the server",
         "parameters": [
           {
             "name": "body",
@@ -153,7 +189,10 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "login",
+            "schema": {
+              "$ref": "#/task"
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -166,9 +205,18 @@
     },
     "/logout": {
       "delete": {
-        "description": "",
+        "tags": [
+          "definitions"
+        ],
+        "description": "Loggout",
         "parameters": [],
         "responses": {
+          "200": {
+            "description": "loging out and stopping the session",
+            "schema": {
+              "$ref": "#/task"
+            }
+          },
           "204": {
             "description": "No Content"
           },

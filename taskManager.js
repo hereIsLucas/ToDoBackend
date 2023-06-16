@@ -54,6 +54,15 @@ app.get('/tasks', (request, response) => {
     console.error('Error:', error)
     response.status(500).json({ error: 'Our servers are down' })
   }
+  /*
+    #swagger.tags = ["definitions"]
+    #swagger.description = 'Gets the list of tasks'
+  */
+
+  /* #swagger.responses[200] = {
+      description: "List of Tasks",
+      schema: { $ref: "#/task"}
+    } */
 })
 app.post('/tasks', (request, response) => {
   try {
@@ -69,6 +78,15 @@ app.post('/tasks', (request, response) => {
     console.error('Error:', error)
     response.status(500).json({ error: 'Our servers are down' })
   }
+  /*
+    #swagger.tags = ["definitions"]
+    #swagger.description = 'Make a new Task'
+  */
+
+  /* #swagger.responses[200] = {
+      description: "the new Task",
+      schema: { $ref: "#/task"}
+    } */
 })
 app.get('/tasks/:id', (request, response) => {
   try {
@@ -82,6 +100,15 @@ app.get('/tasks/:id', (request, response) => {
     console.error('Error:', error)
     response.status(500).json({ error: 'Our servers are down' })
   }
+  /*
+    #swagger.tags = ["definitions"]
+    #swagger.description = 'Get a specific Task'
+  */
+
+  /* #swagger.responses[200] = {
+      description: "the specific task",
+      schema: { $ref: "#/task"}
+    } */
 })
 app.put('/tasks/:id', (request, response) => {
   try {
@@ -98,6 +125,15 @@ app.put('/tasks/:id', (request, response) => {
     console.error('Error:', error)
     response.status(500).json({ error: 'Our servers are down' })
   }
+  /*
+    #swagger.tags = ["definitions"]
+    #swagger.description = 'Change the value of object'
+  */
+
+  /* #swagger.responses[200] = {
+      description: "changing",
+      schema: { $ref: "#/task"}
+    } */
 })
 app.delete('/tasks/:id', (request, response) => {
   try {
@@ -112,6 +148,15 @@ app.delete('/tasks/:id', (request, response) => {
     console.error('Error:', error)
     response.status(500).json({ error: 'Our servers are down' })
   }
+  /*
+    #swagger.tags = ["definitions"]
+    #swagger.description = 'Deleting of a task'
+  */
+
+  /* #swagger.responses[200] = {
+      description: "deleted Task",
+      schema: { $ref: "#/task"}
+    } */
 })
 // -----------------Authentification and Authorisation-----------------//
 app.post('/login', (request, response) => {
@@ -127,6 +172,15 @@ app.post('/login', (request, response) => {
     console.error('Error:', error)
     response.status(500).json({ error: 'Our servers are down' })
   }
+  /*
+    #swagger.tags = ["definitions"]
+    #swagger.description = 'Give your login data to the server'
+  */
+
+  /* #swagger.responses[200] = {
+      description: "login",
+      schema: { $ref: "#/task"}
+    } */
 })// implement token??
 app.get('/verify', (request, response) => {
   if (!request.session.email) {
@@ -142,6 +196,15 @@ app.delete('/logout', (request, response) => {
     console.error('Error:', error)
     response.status(500).json({ error: 'Our servers are down' })
   }
+  /*
+    #swagger.tags = ["definitions"]
+    #swagger.description = 'Loggout'
+  */
+
+  /* #swagger.responses[200] = {
+      description: "loging out and stopping the session",
+      schema: { $ref: "#/task"}
+    } */
 })
 app.use((request, response) => {
   response.status(404).json({ error: 'Your endpoint doesnt exist' })
