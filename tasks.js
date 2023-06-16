@@ -6,24 +6,24 @@ const port = 3000;
 const tasks = [
     {
         id: 1,
-        title: "Complete project",
-        description: "Finish coding the project and submit it",
-        assignedTo: "John",
-        status: "In Progress"
+        titel: 'Code refactoring',
+        beschreibung: 'Überprüfung und Verbesserung des bestehenden Codes',
+        erstelldatum: '2023-06-14',
+        erfuellungsdatum: null
     },
     {
         id: 2,
-        title: "Review feedback",
-        description: "Review and incorporate feedback from the team",
-        assignedTo: "Emily",
-        status: "Pending"
+        titel: 'Bug fixing',
+        beschreibung: 'Behebung von Fehlern im Programm',
+        erstelldatum: '2023-06-15',
+        erfuellungsdatum: '2023-06-22'
     },
     {
         id: 3,
-        title: "Prepare presentation",
-        description: "Create slides and rehearse the presentation",
-        assignedTo: "Mike",
-        status: "Not Started"
+        titel: 'Feature implementation',
+        beschreibung: 'Entwicklung und Implementierung neuer Funktionen',
+        erstelldatum: '2023-06-16',
+        erfuellungsdatum: null
     }
 ];
 app.use(express.json());
@@ -38,12 +38,12 @@ app.post('/tasks', (request, response) => {
     const id = request.body.id;
     tasks.push(newTask);
     response.setHeader('Content-Type', 'application/json');
-    response.status(201).json({task: newTask, id: id});
+    response.status(201).json({ task: newTask, id: id });
 });
 app.get('/tasks/:id', (request, response) => {
     const id = request.params.id;
     const task = tasks.find((task) => task.id == id);
-    if (!task){
+    if (!task) {
         return response.status(404).json({ error: 'Task not found' });
     }
     response.setHeader('Content-Type', 'application/json');
@@ -69,6 +69,7 @@ app.delete('/tasks/:id', (request, response) => {
     tasks.splice(taskId, 1)
     response.send('deleted ' + id)
 });
+//----------------------------------------------//
 
 app.listen(port, () => {
     console.log('Listening on Port: ', port)
