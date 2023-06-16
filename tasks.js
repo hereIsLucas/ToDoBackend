@@ -39,6 +39,15 @@ app.post('/tasks', (request, response) => {
     response.setHeader('Content-Type', 'application/json');
     response.status(201).json(newTask);
 });
+app.get('/tasks/:id', (request, response) => {
+    const id = request.params.id;
+    const task = tasks.find((task) => task.id == id);
+    if (!task){
+        return response.status(404).json({ error: 'Task not found' });
+    }
+    response.setHeader('Content-Type', 'application/json');
+    response.status(200).json(task);
+});
 
 app.listen(port, () => {
     console.log('Listening on Port: ', port)
