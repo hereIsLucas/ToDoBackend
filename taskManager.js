@@ -33,6 +33,9 @@ const tasks = [
 ]
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use((request, response) => {
+  response.status(404).json({ error: 'Your endpoint doesnt exist' })
+})
 // Copied from classwork @Bosshard
 app.use(session({
   secret: 'seupersecret',
