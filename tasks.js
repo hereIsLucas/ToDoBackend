@@ -35,9 +35,10 @@ app.get('/tasks', (request, response) => {
 }); //todo: output of the id too??
 app.post('/tasks', (request, response) => {
     const newTask = request.body;
+    const id = request.body.id;
     tasks.push(newTask);
     response.setHeader('Content-Type', 'application/json');
-    response.status(201).json(newTask);
+    response.status(201).json({task: newTask, id: id});
 });
 app.get('/tasks/:id', (request, response) => {
     const id = request.params.id;
