@@ -11,21 +11,21 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 const tasks = [
   {
     id: 1,
-    titel: 'Code refactoring',
+    title: 'Code refactoring',
     beschreibung: 'Überprüfung und Verbesserung des bestehenden Codes',
     erstelldatum: '2023-06-14',
     erfuellungsdatum: null
   },
   {
     id: 2,
-    titel: 'Bug fixing',
+    title: 'Bug fixing',
     beschreibung: 'Behebung von Fehlern im Programm',
     erstelldatum: '2023-06-15',
     erfuellungsdatum: '2023-06-22'
   },
   {
     id: 3,
-    titel: 'Feature implementation',
+    title: 'Feature implementation',
     beschreibung: 'Entwicklung und Implementierung neuer Funktionen',
     erstelldatum: '2023-06-16',
     erfuellungsdatum: null
@@ -58,7 +58,7 @@ app.get('/tasks', (request, response) => {
 app.post('/tasks', (request, response) => {
   try {
     const newTask = request.body
-    const newTitle = request.body.titel
+    const newTitle = request.body.title
     const id = request.body.id
     if (!newTitle) {
       return response.status(406).json({ error: 'cannot add task without a title' })
