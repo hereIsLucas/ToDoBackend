@@ -48,7 +48,12 @@ app.all('/tasks/*', (request, response, next) => {
 })
 // -----------------Tasks and their CRUD endpoints-----------------//
 app.get('/tasks', (request, response) => {
-  response.status(200).json(tasks)
+  try {
+    response.status(200).json(tasks)
+  } catch (error) {
+    console.error('Error:', error)
+    response.status(500).json({ error: 'Our servers are down' })
+  }
 })
 app.post('/tasks', (request, response) => {
   const newTask = request.body

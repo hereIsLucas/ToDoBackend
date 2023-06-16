@@ -3,8 +3,8 @@ const outputFile = './swagger-output.json'
 const endpointsFiles = ['./taskManager.js']
 const config = {
   info: {
-    title: 'Clap goof y cheeks',
-    description: 'We are a big chicken farm'
+    title: 'Task Manager',
+    description: 'We are on-time with our plans'
   },
   host: 'localhost:3000',
   securityDefinitions: {
