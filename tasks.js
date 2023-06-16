@@ -62,7 +62,13 @@ app.put('/tasks/:id', (request, response) => {
     response.setHeader('Content-Type', 'application/json');
     response.json(editTask);
 });
-
+app.delete('/tasks/:id', (request, response) => {
+    //const editBook = request.body;
+    const id = request.params.id;
+    const taskId = tasks.findIndex((task) => task.id == id);
+    tasks.splice(taskId, 1)
+    response.send('deleted ' + id)
+});
 
 app.listen(port, () => {
     console.log('Listening on Port: ', port)
