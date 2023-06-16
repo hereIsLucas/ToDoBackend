@@ -1,8 +1,8 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Clap goof y cheeks",
-    "description": "We are a big chicken farm",
+    "title": "Task Manager",
+    "description": "We are on-time with our plans",
     "version": "1.0.0"
   },
   "host": "localhost:3000",
@@ -25,6 +25,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
@@ -37,6 +40,9 @@
             "schema": {
               "type": "object",
               "properties": {
+                "titel": {
+                  "example": "any"
+                },
                 "id": {
                   "example": "any"
                 }
@@ -47,6 +53,12 @@
         "responses": {
           "201": {
             "description": "Created"
+          },
+          "406": {
+            "description": "Not Acceptable"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -68,6 +80,9 @@
           },
           "404": {
             "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
@@ -87,6 +102,9 @@
           },
           "404": {
             "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
@@ -106,6 +124,9 @@
           },
           "404": {
             "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -136,6 +157,9 @@
           },
           "401": {
             "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -147,6 +171,9 @@
         "responses": {
           "204": {
             "description": "No Content"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
