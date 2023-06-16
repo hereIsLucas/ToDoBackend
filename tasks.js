@@ -1,4 +1,5 @@
 const express = require('express');
+const session = require('express-session')
 const app = express();
 //define a port on which it should listen too
 const port = 3000;
@@ -28,7 +29,14 @@ const tasks = [
 ];
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-//----------------------------------------------//
+//Copied from classwork @Bosshard
+app.use(session({
+    secret: 'seupersecret',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {}
+}));
+//-----------------Tasks and their CRUD endpoints-----------------//
 app.get('/tasks', (request, response) => {
     response.setHeader('Content-Type', 'application/json');
     response.status(200).json(tasks);
@@ -69,7 +77,17 @@ app.delete('/tasks/:id', (request, response) => {
     tasks.splice(taskId, 1)
     response.send('deleted ' + id)
 });
-//----------------------------------------------//
+//-----------------Authentification and Authorisation-----------------//
+app.post('/login', (request, response) => {
+    const { email, password } = request.body;
+    if (!(password === 'm295')) {
+        return response.status(401);
+    }
+    request.session.authenticated = true;
+    request.session.email = email;
+    response.json({ message: 'Authorisation granted' });
+});//implement token??
+
 
 app.listen(port, () => {
     console.log('Listening on Port: ', port)
