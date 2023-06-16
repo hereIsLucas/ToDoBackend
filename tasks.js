@@ -29,6 +29,11 @@ const tasks = [
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.get('/tasks', (request, response) => {
+    response.setHeader('Content-Type', 'application/json')
+    response.status(200).json(tasks);
+});
+
 app.listen(port, () => {
     console.log('Listening on Port: ', port)
 });
