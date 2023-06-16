@@ -48,6 +48,20 @@ app.get('/tasks/:id', (request, response) => {
     response.setHeader('Content-Type', 'application/json');
     response.status(200).json(task);
 });
+app.put('/tasks/:id', (request, response) => {
+    const editTask = request.body;
+    const id = request.params.id;
+    // Find the book with the matching ISBN
+    const taskId = tasks.findIndex((task) => task.id == id);
+
+    if (taskId == -1) {
+        return response.status(404).json({ error: 'Task not found' });
+    }
+    tasks.splice(taskId, 1, editTask);
+    response.setHeader('Content-Type', 'application/json');
+    response.json(editTask);
+});
+
 
 app.listen(port, () => {
     console.log('Listening on Port: ', port)
