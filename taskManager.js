@@ -45,14 +45,12 @@ app.all('/tasks/*', (request, response, next) => {
 })
 // -----------------Tasks and their CRUD endpoints-----------------//
 app.get('/tasks', (request, response) => {
-  response.setHeader('Content-Type', 'application/json')
   response.status(200).json(tasks)
 })
 app.post('/tasks', (request, response) => {
   const newTask = request.body
   const id = request.body.id
   tasks.push(newTask)
-  response.setHeader('Content-Type', 'application/json')
   response.status(201).json({ task: newTask, id })
 })
 app.get('/tasks/:id', (request, response) => {
@@ -61,7 +59,6 @@ app.get('/tasks/:id', (request, response) => {
   if (!task) {
     return response.status(404).json({ error: 'Task not found' })
   }
-  response.setHeader('Content-Type', 'application/json')
   response.status(200).json(task)
 })
 app.put('/tasks/:id', (request, response) => {
@@ -73,7 +70,6 @@ app.put('/tasks/:id', (request, response) => {
     return response.status(404).json({ error: 'Task not found' })
   }
   tasks.splice(taskId, 1, editTask)
-  response.setHeader('Content-Type', 'application/json')
   response.json(editTask)
 })
 app.delete('/tasks/:id', (request, response) => {
@@ -91,11 +87,9 @@ app.post('/login', (request, response) => {
   request.session.authenticated = true
   request.session.email = email
   response.setHeader('Content-Type', 'application/json')
-  response.json({ message: 'Authorisation granted' })
 })// implement token??
 app.get('/verify', (request, response) => {
   if (!request.session.email) {
-    response.setHeader('Content-Type', 'application/json')
     return response.status(401).json({ error: 'Unauthenticated' })
   }
   return response.status(200).json({ message: 'Authenticated', email: request.session.email })
