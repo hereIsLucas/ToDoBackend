@@ -28,10 +28,16 @@ const tasks = [
 ];
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+//----------------------------------------------//
 app.get('/tasks', (request, response) => {
-    response.setHeader('Content-Type', 'application/json')
+    response.setHeader('Content-Type', 'application/json');
     response.status(200).json(tasks);
+}); //todo: output of the id too??
+app.post('/tasks', (request, response) => {
+    const newTask = request.body;
+    tasks.push(newTask);
+    response.setHeader('Content-Type', 'application/json');
+    response.status(201).json(newTask);
 });
 
 app.listen(port, () => {
