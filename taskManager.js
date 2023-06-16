@@ -56,52 +56,77 @@ app.get('/tasks', (request, response) => {
   }
 })
 app.post('/tasks', (request, response) => {
-  const newTask = request.body
-  const newTitle = request.body.titel
-  const id = request.body.id
-  if (!newTitle) {
-    return response.status(406).json({ error: 'cannot add task without a title' })
+  try {
+    const newTask = request.body
+    const newTitle = request.body.titel
+    const id = request.body.id
+    if (!newTitle) {
+      return response.status(406).json({ error: 'cannot add task without a title' })
+    }
+    tasks.push(newTask)
+    response.status(201).json({ task: newTask, id })
+  } catch (error) {
+    console.error('Error:', error)
+    response.status(500).json({ error: 'Our servers are down' })
   }
-  tasks.push(newTask)
-  response.status(201).json({ task: newTask, id })
 })
 app.get('/tasks/:id', (request, response) => {
-  const id = request.params.id
-  const task = tasks.find((task) => task.id == id)
-  if (!task) {
-    return response.status(404).json({ error: 'Task not found' })
+  try {
+    const id = request.params.id
+    const task = tasks.find((task) => task.id == id)
+    if (!task) {
+      return response.status(404).json({ error: 'Task not found' })
+    }
+    response.status(200).json(task)
+  } catch (error) {
+    console.error('Error:', error)
+    response.status(500).json({ error: 'Our servers are down' })
   }
-  response.status(200).json(task)
 })
 app.put('/tasks/:id', (request, response) => {
-  const editTask = request.body
-  const id = request.params.id
-  const taskId = tasks.findIndex((task) => task.id == id)
+  try {
+    const editTask = request.body
+    const id = request.params.id
+    const taskId = tasks.findIndex((task) => task.id == id)
 
-  if (taskId == -1) {
-    return response.status(404).json({ error: 'Task not found' })
+    if (taskId == -1) {
+      return response.status(404).json({ error: 'Task not found' })
+    }
+    tasks.splice(taskId, 1, editTask)
+    response.json(editTask)
+  } catch (error) {
+    console.error('Error:', error)
+    response.status(500).json({ error: 'Our servers are down' })
   }
-  tasks.splice(taskId, 1, editTask)
-  response.json(editTask)
 })
 app.delete('/tasks/:id', (request, response) => {
-  const id = request.params.id
-  const taskId = tasks.findIndex((task) => task.id == (id))
-  if (taskId == -1) {
-    return response.status(404).json({ error: 'Inexistence of this Id: ' + id })
+  try {
+    const id = request.params.id
+    const taskId = tasks.findIndex((task) => task.id == (id))
+    if (taskId == -1) {
+      return response.status(404).json({ error: 'Inexistence of this Id: ' + id })
+    }
+    tasks.splice(taskId, 1)
+    response.json({ message: 'deleted this Id ' + id })
+  } catch (error) {
+    console.error('Error:', error)
+    response.status(500).json({ error: 'Our servers are down' })
   }
-  tasks.splice(taskId, 1)
-  response.json({ message: 'deleted this Id ' + id })
 })
 // -----------------Authentification and Authorisation-----------------//
 app.post('/login', (request, response) => {
-  const { email, password } = request.body
-  if (!(password == 'm295')) {
-    return response.status(401)
+  try {
+    const { email, password } = request.body
+    if (!(password == 'm295')) {
+      return response.status(401)
+    }
+    request.session.authenticated = true
+    request.session.email = email
+    response.json({ message: request.session.email })
+  } catch (error) {
+    console.error('Error:', error)
+    response.status(500).json({ error: 'Our servers are down' })
   }
-  request.session.authenticated = true
-  request.session.email = email
-  response.json({ message: request.session.email })
 })// implement token??
 app.get('/verify', (request, response) => {
   if (!request.session.email) {
@@ -110,8 +135,13 @@ app.get('/verify', (request, response) => {
   return response.status(200).json({ message: 'Authenticated', email: request.session.email })
 })
 app.delete('/logout', (request, response) => {
-  request.session.email = undefined
-  response.sendStatus(204)
+  try {
+    request.session.email = undefined
+    response.sendStatus(204)
+  } catch (error) {
+    console.error('Error:', error)
+    response.status(500).json({ error: 'Our servers are down' })
+  }
 })
 app.listen(port, () => {
   console.log('Listening on Port: ', port)
