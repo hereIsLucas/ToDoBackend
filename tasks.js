@@ -38,8 +38,9 @@ app.use(session({
 }))
 app.all('/tasks/*', (request, response, next) => {
   if (!request.session.email) {
-    response.sendStatus(401)
+    response.status(403).json({ message: 'Unauthenticaded' })
   }
+  response.send(request.session.email)
   next()
 })
 // -----------------Tasks and their CRUD endpoints-----------------//
@@ -101,6 +102,12 @@ app.get('/verify', (request, response) => {
   }
   return response.status(200).json({ message: 'Authenticated', email: request.session.email })
 })
+app.delete('/logout', (request, response) => {
+  request.session.destroy()
+  request.session.authenticated = false
+  response.sendStatus(204)
+})
+
 
 app.listen(port, () => {
   console.log('Listening on Port: ', port)
