@@ -36,6 +36,12 @@ app.use(session({
     saveUninitialized: false,
     cookie: {}
 }));
+app.all("/tasks/*", (request, response, next) => {
+    if (!request.session.email) {
+        response.sendStatus(401);
+    }
+    next()
+})
 //-----------------Tasks and their CRUD endpoints-----------------//
 app.get('/tasks', (request, response) => {
     response.setHeader('Content-Type', 'application/json');
@@ -85,9 +91,15 @@ app.post('/login', (request, response) => {
     }
     request.session.authenticated = true;
     request.session.email = email;
+    response.setHeader('Content-Type', 'application/json');
     response.json({ message: 'Authorisation granted' });
 });//implement token??
-
+app.get('/verify', (request, response) => {
+    request.session.email = undefined;
+    response.setHeader('Content-Type', 'application/json');
+    response.status(401).json({error: 'Unauthenticated', token: request.session.email });
+    
+});
 
 app.listen(port, () => {
     console.log('Listening on Port: ', port)
