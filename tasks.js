@@ -95,9 +95,11 @@ app.post('/login', (request, response) => {
   response.json({ message: 'Authorisation granted' })
 })// implement token??
 app.get('/verify', (request, response) => {
-  request.session.email = undefined
-  response.setHeader('Content-Type', 'application/json')
-  response.status(401).json({ error: 'Unauthenticated', token: request.session.email })
+  if (!request.session.email) {
+    response.setHeader('Content-Type', 'application/json')
+    return response.status(401).json({ error: 'Unauthenticated' })
+  }
+  return response.status(200).json({ message: 'Authenticated', email: request.session.email })
 })
 
 app.listen(port, () => {
